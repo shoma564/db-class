@@ -5,3 +5,6 @@ CREATE TABLE admininfo (
   user CHAR(100),
   password CHAR(100)
 );
+
+
+INSERT INTO admininfo VALUES (0, "shoma", "pass");
