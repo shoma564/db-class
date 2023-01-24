@@ -1,10 +1,15 @@
-#!/bin/bash
-docker-compose down --rmi all --volumes --remove-orphans
 
-rm -r ./mysql
-#docker build ./python -t shomaigu/program-pyrou:latest
-#docker push shomaigu/program-pyrou:latest
+
+#!/bin/bash
+
+docker-compose down
+#docker-compose down --rmi all --volumes --remove-orphans
+
+rm -r -f ./mysql
 
 docker-compose build
-docker-compose up
 
+#docker build ./python -t shomaigu/mysql-database-class:latest .
+#docker push shomaigu/mysql-database-class
+
+docker-compose up

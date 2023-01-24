@@ -1,19 +1,19 @@
 version: '3'
 services:
   mysql:
-    container_name: db_mysql
-#    image: mysql
-    build:
-      context: .
-      dockerfile: ./db/Dockerfile
+    image: shomaigu/mysql-database-class
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
     volumes:
     - ./mysql:/var/lib/mysql
-#    - ./initdb.d:/docker-entrypoint-initdb.d
-#    environment:
-#    - MYSQL_ROOT_PASSWORD=root
-#    - TZ=Asia/Tokyo
+
+    environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - TZ=Asia/Tokyo
     ports:
     - "3306:3306"
+    restart: always
 
   flask:
     container_name: db_flask
@@ -24,3 +24,8 @@ services:
       - 80:80
     restart: always
     tty: true
+    volumes:
+    - ./flask/requirements.txt /usr/src/app/
+    - ./flask/app.py /usr/src/app/
+    - ./flask/templates /usr/src/app/templates
+    - ./flask/static /usr/src/app/static
