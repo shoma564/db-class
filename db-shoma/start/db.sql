@@ -1,4 +1,5 @@
 create database tmcit;
+
 create table tmcit.userinfo(
     user_id int auto_increment,
     user_name varchar(10) not NULL,
@@ -59,3 +60,12 @@ create table tmcit.eventinfo(
     FOREIGN KEY(execise_id) REFERENCES execiseinfo(execise_id)
     );
 
+create table tmcit.groupinfo(
+    user_id int,
+    PRIMARY KEY (group_id),
+    group_id int auto_increment,
+    date_registration date,
+    date_updated date,
+    group_name varchar(32),
+    FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
+    );
