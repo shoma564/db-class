@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    volumes:
-    - ./mysql:/var/lib/mysql
+#    volumes:
+#    - ./mysql:/var/lib/mysql
 
     environment:
     - MYSQL_ROOT_PASSWORD=root
