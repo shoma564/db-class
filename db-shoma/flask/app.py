@@ -1,8 +1,9 @@
 
-from flask import Flask, flash, render_template, request, session
+from flask import Flask, flash, render_template, request, session, url_for
 import mysql.connector, re
 from datetime import timedelta
-
+from lib.user import User
+from lib.group import Group
 
 app = Flask(__name__)
 
@@ -102,6 +103,26 @@ def user_information_res():
 @app.route("/task_home")
 def task():
     return render_template("task_home.html", user = session["name"])
+
+
+@app.route("/task-add",methods=["POST","GET"])
+def task_add():
+    return render_template("task-add.html", user = session["name"])
+
+@app.route("/group",methods=["POST","GET"])
+def group():
+    if request.method == "POST":
+        user_name = session["name"]
+        group_name = request.form.get('group_name')
+        user_id=User.get_userID(user_name)
+        print(user_id,group_name)
+        Group.group_add(user_id , group_name)
+    
+        return render_template("group.html" , tittle='グループ追加')
+    
+    else:
+        return render_template("group.html" , tittle='グループ追加')
+    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug=True)
