@@ -18,9 +18,6 @@ class User:
         cursor.execute("SELECT user_id FROM userinfo WHERE user_name=%s", (user_name,))
         id = int(cursor.fetchone()[0])
         print(id,type(id))
-        # userid=id[0]
-        # print(id[0])
-        # print(type(id[0]))
         return int(id)
 
     def loginjudge():
