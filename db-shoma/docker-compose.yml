@@ -1,7 +1,11 @@
 version: '3'
 services:
   mysql:
+<<<<<<< HEAD
     #image: shomaigu/mysql-database-class
+=======
+#    image: shomaigu/mysql-database-class
+>>>>>>> main
     build:
       context: .
       dockerfile: ./Dockerfile

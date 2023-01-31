@@ -68,4 +68,8 @@ create table tmcit.groupinfo(
     date_updated date,
     group_name varchar(32),
     FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
+<<<<<<< HEAD
     );
+=======
+    );
+>>>>>>> main

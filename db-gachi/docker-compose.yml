@@ -1,12 +1,12 @@
 version: '3'
 services:
   mysql:
-    image: shomaigu/mysql-database-class
-#    build:
-#      context: .
-#      dockerfile: ./Dockerfile
-    volumes:
-    - ./mysql:/var/lib/mysql
+#    image: shomaigu/mysql-database-class
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+#    volumes:
+#    - ./mysql:/var/lib/mysql
 
     environment:
     - MYSQL_ROOT_PASSWORD=root
