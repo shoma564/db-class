@@ -20,11 +20,10 @@ class User:
         print(id,type(id))
         return int(id)
 
-    def loginjudge():
+    def loginjudge(cls, name):
         '''
         ログイン判定
         '''
-        name = session.get("name")
         print(name)
         if str(name)=='None':
             session["flag"]=False

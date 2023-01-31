@@ -11,10 +11,10 @@ create table tmcit.userinfo(
     date_deletion date,
     PRIMARY KEY (user_id)
     );
-
+-- 変更
 create table tmcit.groupinfo(
-    user_id int auto_increment,
-    group_id int,
+    user_id int,
+    group_id int auto_increment,
     date_registration date,
     date_updated date,
     group_name varchar(32),

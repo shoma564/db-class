@@ -14,8 +14,17 @@ class Group:
         '''
         db=mysql.connector.connect(host="mysql", user="root", password="root", database="tmcit")
         cursor=db.cursor(buffered=True)
-        # conn = DatabaseConnection.get_connection()
-        #cursor.execute("INSERT INTO userinfo VALUES (NULL, %s, %s, %s, NULL, now(), now(), NULL)", (user_name, user_password, user_mailaddress))
-        cursor.execute("INSERT INTO groupinfo VALUES (%s, NULL , now(), now() , %s)", (user_id , group_name))
-        db.commit()
-        return True
+        
+        cursor.execute("select group_id from groupinfo where group_name = %s and user_id = %s", (group_name , user_id))
+        get1 = cursor.fetchone()
+        print(get1)
+        print(type(get1))
+        
+        # 追加した人自身の追加
+        if get1 is None:
+            cursor.execute("INSERT INTO groupinfo VALUES (%s, NULL , now(), now() , %s)", (int(user_id) , group_name))
+            db.commit()
+            return 'グループに追加しました'
+        
+        else:
+            return '既にユーザが追加されています'

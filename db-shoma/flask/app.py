@@ -1,5 +1,5 @@
 
-from flask import Flask, flash, render_template, request, session, url_for
+from flask import Flask, flash, render_template, request, session, url_for ,redirect
 import mysql.connector, re
 from datetime import timedelta
 from lib.user import User
@@ -71,6 +71,8 @@ def toures():
         user_id = cursor.fetchall()
         #session["id"] = int(user_id[2])
 
+        #User.loginjudge(session["name"])
+
         return render_template("health_home.html", user = session["name"], password = session["password"])
 
     else:
@@ -100,9 +102,9 @@ def user_information_res():
     return render_template("health_home.html", user = session["name"])
 
 
-@app.route("/task_home")
+@app.route("/task")
 def task():
-    return render_template("task_home.html", user = session["name"])
+    return render_template("task.html", user = session["name"])
 
 
 @app.route("/task-add",methods=["POST","GET"])
@@ -111,18 +113,44 @@ def task_add():
 
 @app.route("/group",methods=["POST","GET"])
 def group():
+    # if "flag" in session and session["flag"]:
     if request.method == "POST":
         user_name = session["name"]
         group_name = request.form.get('group_name')
+        users = request.form.getlist('name')
+        
+        print(type(users))
+        print(users)
+
+        userlist=[]
+        for user in users:
+            user_id=User.get_userID(user)
+            userlist.append(int(user_id))
+
         user_id=User.get_userID(user_name)
-        print(user_id,group_name)
-        Group.group_add(user_id , group_name)
+        userlist.append(user_id)
+        
+        for user in userlist:
+            print(type(user))
+            print(user)
+            message = Group.group_add(int(user) , group_name)
     
         return render_template("group.html" , tittle='グループ追加')
     
     else:
         return render_template("group.html" , tittle='グループ追加')
+    # else:
+    #     return redirect(url_for('index'))
+
+
+# /logoutに処理追加
+# session.pop("flag", None)
+# 
+    # if "flag" in session and session["flag"]:
+    #     中身
     
+    # else:
+    #     return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug=True)
